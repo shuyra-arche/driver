@@ -1,3 +1,55 @@
+# Driver aggregate provenance
+
+Current architecture is Cluster aggregation with fixed Unit Git submodules.
+Vanllia fixes the Cluster; the Cluster fixes each Unit. The previous Driver
+snapshot8e6de5a77aa52184bb6f7fbbcbc961f779e94629 remains in public Git history.
+Its complete frozen original file map is retained below as historical provenance.
+The aggregate has no second API implementation outside its fixed Unit submodules.
+API sources inside units/hub and units/router are owned by those Unit repositories.
+
+| Submodule | Public repository | Complete revision |
+| --- | --- | --- |
+| units/hub | https://github.com/shuyra-arche/hub.git | `daa23b2611fee0c503bc6bd31a16121d97698ad6` |
+| units/router | https://github.com/shuyra-arche/router.git | `94fec223f3c5df6c99a49527a65d016d88de3af4` |
+
+Hub extends its existing API history fromcccef3f325198c8390007ae88b064bae0f21f93e;
+all35 canonical API files and12 canonical test files remain byte-exact (six Rust
+files, two manifests, two locks and two .gitignore files, counted from Gitcccef).
+Its public
+clean checkout proved140 files,84 distinct host cases(65 runtime+19 canonical),
+four host libraries and actual RV debug/release Hub executables. Original143
+production functions,65 runtime cases,145 fixture/test functions,19 field bodies
+and14 local production projections retain their accepted contract. Hub's own
+PROVENANCE keeps the original API provenance verbatim and adds76 Source293 paths,
+original hashes/authors and no invented license. The old copied coordination
+suite is replaced by the original canonical suite; no assertion was deleted.
+
+Router currently owns only the original five pure API files, publicly checked
+byte-exact to Source293. Router client/server/declaration/runtime remain pending
+in Source. Its PROVENANCE records those five paths/hashes and original author.
+
+Shared support/ is still the single pure Peer implementation, unchanged from
+public Driver8e6. Runtime Unit and Source consumers intentionally pin the named
+driver-support package at immutable8e6, preserving System Face5a and avoiding a
+repository release cycle. The aggregate's own support library is not a Hub
+runtime dependency; actual resolve closures are checked. Hub API remainscccef,
+Router API94fec, System API9e/client-support5a, Kernel3aa/System runtime9001.
+No System-peer publication, nominal SDK cascade, Source backlink or path override.
+
+The pure driver-cluster interface registers only migrated Hub and its explicit
+BUILD, with one manifest prefix units/hub/server/Cargo.toml. Units own their
+independent workspaces. Source/vanllia still selects the combined declaration
+set and Deployment. Other Driver runtimes and mixed device-recovery/system-shape
+acceptance remain Source-owned until their own slices. Cluster/public recursive
+proof and real Kernel3aa/System9001 SMP4/8 DMA/reclaim integration are separate
+pending gates; host transport/resource mocks are not Kernel proof. No full Driver
+or Router migration is claimed. The Source root had no project LICENSE; none is
+invented, and original Unit histories/headers/authorship remain preserved.
+
+---
+
+## Retained historical original-snapshot provenance (Driver8e6)
+
 # Provenance
 
 Original Source: https://github.com/anreonyr/sqware.git

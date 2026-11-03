@@ -1,0 +1,6 @@
+[submodule "units/hub"]
+	path = units/hub
+	url = https://github.com/shuyra-arche/hub.git
+[submodule "units/router"]
+	path = units/router
+	url = https://github.com/shuyra-arche/router.git

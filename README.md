@@ -1,55 +1,42 @@
 # Driver Cluster
 
-Current approved first slice: **Hub only**. This tree is not a complete Driver
-Cluster and does not claim the other Unit runtimes are migrated.
+Aggregate for the Driver Cluster. The only migrated runtime Unit in this slice
+is Hub. Other Driver Unit runtimes remain pending; this repository does not claim
+a complete Driver Cluster or Source integration.
 
 ## Members
 
-| Path | Package | Role |
+| Path | Kind | Identity / role |
 | --- | --- | --- |
-| `support` | `driver-support` | Shared pure transport/helper crate; one `Peer` implementation. |
-| `units/router/api` | `router-api` | Pure Router API prerequisite only. Router runtime/client stay Source this slice. |
-| `units/hub/client` | `hub-client` | Original Hub typed client, adapted only at crate boundaries. |
-| `units/hub/server` | `hub-server` / bin `hub` | Original Hub server plus public `mold`/`execution` entry. |
-| `units/hub/declaration` | `hub-declaration` | Hub `UNIT` and `BUILD` declaration. |
-| `cluster` | `driver-cluster` | Explicit migrated-unit roster; reexports Hub declaration only. |
-| `units/hub/tests/handoff` | owner tests | 21 Hub runtime handoff assertions. |
-| `units/hub/tests/retention` | owner tests | 39 Hub retention/claim/protocol assertions. |
-| `units/hub/tests/capability-import` | owner tests | 5 Hub claim/grant/vacate assertions. |
-| `units/hub/tests/coordination` | retained API tests | 10 canonical Hub API coordination wire tests; not a replacement for runtime suites. |
+| `support` | local pure package | `driver-support` transport helper kept for aggregate-local work. Runtime Unit closures and Source consumers use immutable public `driver-support` `8e6de5a77aa52184bb6f7fbbcbc961f779e94629` with System Face5a. |
+| `cluster` | local pure package | Explicit aggregate declaration; no runtime dependency on Hub server or Peer types. |
+| `units/hub` | fixed public submodule | Hub Unit `daa23b2611fee0c503bc6bd31a16121d97698ad6`, extending canonical Hub API `cccef3f325198c8390007ae88b064bae0f21f93e`. |
+| `units/router` | fixed public submodule | Pure Router API `94fec223f3c5df6c99a49527a65d016d88de3af4`; prerequisite only. |
 
-## Identity and dependencies
+`units/hub` owns its API/client/server/declaration and 65 runtime + 19 canonical
+host tests. Its public proof passed 84 host cases and RV debug/release Hub ELFs.
+Those tests are inside the Unit, not mirrored here. The aggregate does not mount
+Unit paths as workspace members.
 
-- Canonical Hub API remains public
-  `cccef3f325198c8390007ae88b064bae0f21f93e`; no active API definitions are
-  copied into this repository.
-- System Face identity remains public `system-client`
-  `5a792ff2d39901a970925b1a6d63206adf6c16d8`; `driver-support` depends on that
-  Git source, not a sibling System workspace.
-- Original Hub and shared `Peer` bodies, names, field order, limits, DMA/fence
-  ordering, authorization and reclamation remain preserved. Boundary changes
-  are limited to `crate::core`, `system_support`, and `driver_support::peer`.
-- Hub build: `units/hub/server/Cargo.toml`, package `hub-server`, bin `hub`,
-  image `hub`, no features, release profile, default features enabled.
+`units/router` remains a pure API prerequisite. Router runtime/client stay
+Source; no fake Router UnitFile is declared, and Router runtime migration is not
+claimed.
 
-## Test ownership
+## Declarations
 
-The current Driver/Hub runtime suites are **65 Hub-owned Rust assertions**:
-`handoff` 21, `retention` 39, `capability-import` 5. Every suite uses the actual
-Hub production core/serve projections in this tree, with the original local
-transport/resource fixtures. Exact source module, Unit file, and test-name
-mapping is in `units/hub/tests/README.md`.
-
-`units/hub/tests/coordination` contains the 10 canonical public Hub API
-coordination tests and does not replace the 65 runtime assertions.
-
-`programs/tests/device-recovery` (8 Rust + 126 Python) and the five mixed
-`programs/tests/system-shape` selectors remain Source for this slice. The frozen
-historical retention IOMMU selectors are intentionally not recreated.
+`driver-cluster` reexports only the public Hub declaration as `hub`. `UNITS`
+contains the current migrated Hub Unit only. `IMAGE_BUILDS` contains one Hub
+build and delegates every leaf BUILD field except the manifest prefix:
+`units/hub/server/Cargo.toml`. The Unit BUILD itself is `server/Cargo.toml`;
+future Source intake uses `components/driver/units/hub/server/Cargo.toml`.
+Package/bin/image `hub-server`/`hub`/`hub`, empty features, RV64 release, and
+default features remain unchanged.
 
 ## Pending
 
-Router runtime/client, UART, RTC, PCI, IOMMU, virtio-blk and the device
-supervisor remain pending. Router API is a pure prerequisite, not a claim that
-the Router Unit runtime has moved. Source composition and Deployment selection
-remain Root-owned. No native, RV, Kernel or System integration is claimed here.
+UART, RTC, PCI, IOMMU, virtio-blk and the device supervisor Unit runtimes remain
+pending. Actual Source `Kernel3aa`/`System9001` SMP4/8 DMA, authorization,
+claim/grant, fence, close/inspect/settle, reclamation and generation acceptance
+remains pending and mandatory; host tests are not a substitute. Source Phase4 is
+not assigned. Root owns selected version records, provenance, Git/submodule
+metadata, locks and public proof. See `ACCEPTANCE.md`.
