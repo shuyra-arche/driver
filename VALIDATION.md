@@ -42,6 +42,14 @@ League import as a field; the corrected report restricts parsing to the struct
 body, with both reports retained. Neither correction changed test assertions,
 production runtime bodies, timeouts or reclamation criteria.
 
+The initial public snapshot `67ad17644db0505ae7aa5b85e77078338463af0c`
+contained109 tracked files instead of the frozen110: the coordination suite's
+local `.gitignore` excluded its generated Cargo.lock. Public validation stopped
+at this packaging check before Cargo ran. Root explicitly tracks the exact
+already-validated lock bytes in the follow-up commit and repeats validation from
+a new public checkout. The initial snapshot and failed proof remain preserved;
+this correction changes release packaging and this record only.
+
 Host transport/resource fixtures do not prove Kernel DMA reclaim. Actual Source
 composition, Kernel `3aa0a155f825fbf377fc8d04009472ca67cbbf8c`, System runtime
 `9001af65f97501dfa490c9397c61d593c871136d`, and SMP4/8 QEMU integration remain
