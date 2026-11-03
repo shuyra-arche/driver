@@ -2,15 +2,18 @@
 
 Status: **PENDING**. No Source Kernel3aa/System9001 integration run, QEMU
 acceptance, aggregate native proof, or public aggregate proof has been performed
-or claimed by the worker.
+or claimed by the worker. The Router Unit `aa3033a…` leaf proof passed
+independently; it does not establish this aggregate's own proof.
 
 ## Selected versions
 
 - Hub Unit: `daa23b2611fee0c503bc6bd31a16121d97698ad6` (public proof passed:
   65 runtime + 19 canonical host cases; RV debug/release Hub ELFs).
 - Canonical Hub API: `cccef3f325198c8390007ae88b064bae0f21f93e`.
-- Router API prerequisite: `94fec223f3c5df6c99a49527a65d016d88de3af4`.
-  Router runtime/client remain Source.
+- Router Unit: `aa3033a7bd25b5d4199a50a6c00538475b62ef4c` (API + client,
+  independent public leaf proof passed). Canonical Router API remains
+  `94fec223f3c5df6c99a49527a65d016d88de3af4`; Router
+  server/declaration/shared support/runtime remain Source/pending.
 - Canonical `driver-support`: `8e6de5a77aa52184bb6f7fbbcbc961f779e94629`,
   preserving System Face `5a792ff2d39901a970925b1a6d63206adf6c16d8`.
 - Kernel `3aa0a155f825fbf377fc8d04009472ca67cbbf8c`; System runtime

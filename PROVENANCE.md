@@ -10,7 +10,7 @@ API sources inside units/hub and units/router are owned by those Unit repositori
 | Submodule | Public repository | Complete revision |
 | --- | --- | --- |
 | units/hub | https://github.com/shuyra-arche/hub.git | `daa23b2611fee0c503bc6bd31a16121d97698ad6` |
-| units/router | https://github.com/shuyra-arche/router.git | `94fec223f3c5df6c99a49527a65d016d88de3af4` |
+| units/router | https://github.com/shuyra-arche/router.git | `aa3033a7bd25b5d4199a50a6c00538475b62ef4c` |
 
 Hub extends its existing API history fromcccef3f325198c8390007ae88b064bae0f21f93e;
 all35 canonical API files and12 canonical test files remain byte-exact (six Rust
@@ -24,9 +24,14 @@ PROVENANCE keeps the original API provenance verbatim and adds76 Source293 paths
 original hashes/authors and no invented license. The old copied coordination
 suite is replaced by the original canonical suite; no assertion was deleted.
 
-Router currently owns only the original five pure API files, publicly checked
-byte-exact to Source293. Router client/server/declaration/runtime remain pending
-in Source. Its PROVENANCE records those five paths/hashes and original author.
+Router Unit aa3033a owns the original five API files and the original four client
+files. The five API files remain byte-exact to canonical Router API 94fec; the
+client is byte-exact to Source ac5b61d8880c499f8cee4c60929c06cc9f4820d8 and keeps
+the canonical router-api Git pin 94fec. Its public leaf proof passed nine byte
+checks, canonical API identity, online/offline metadata and host/RV debug/release
+libraries; that is not an aggregate public proof or a runtime claim. Router
+server/declaration/shared support/runtime remain pending in Source. The Unit's
+PROVENANCE records the API and client paths/hashes and original author.
 
 Shared support/ is still the single pure Peer implementation, unchanged from
 public Driver8e6. Runtime Unit and Source consumers intentionally pin the named
