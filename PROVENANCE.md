@@ -10,7 +10,7 @@ API sources inside units/hub and units/router are owned by those Unit repositori
 | Submodule | Public repository | Complete revision |
 | --- | --- | --- |
 | units/hub | https://github.com/shuyra-arche/hub.git | `daa23b2611fee0c503bc6bd31a16121d97698ad6` |
-| units/router | https://github.com/shuyra-arche/router.git | `aa3033a7bd25b5d4199a50a6c00538475b62ef4c` |
+| units/router | https://github.com/shuyra-arche/router.git | `8a9416277539aefbc759c4f6519e1e8d93d63be3` |
 
 Hub extends its existing API history fromcccef3f325198c8390007ae88b064bae0f21f93e;
 all35 canonical API files and12 canonical test files remain byte-exact (six Rust
@@ -24,16 +24,17 @@ PROVENANCE keeps the original API provenance verbatim and adds76 Source293 paths
 original hashes/authors and no invented license. The old copied coordination
 suite is replaced by the original canonical suite; no assertion was deleted.
 
-Router Unit aa3033a owns the original five API files and the original four client
-files. The five API files remain byte-exact to canonical Router API 94fec; the
-client is byte-exact to Source ac5b61d8880c499f8cee4c60929c06cc9f4820d8 and keeps
-the canonical router-api Git pin 94fec. Its public leaf proof passed nine byte
-checks, canonical API identity, online/offline metadata and host/RV debug/release
-libraries; that is not an aggregate public proof or a runtime claim. Router
-server/declaration/runtime remain pending in Source. The new `shared/` package
-provides Context/Device/Fail; Source still consumes its original local modules
-until a separate intake. The Unit's
-PROVENANCE records the API and client paths/hashes and original author.
+Router Unit 8a941627 adds the Source c975cec server and declaration to its
+unchanged API/client. API remains canonical 94fec and client remains aa3033a,
+whose original Source content anchor is ac5b61d8880c499f8cee4c60929c06cc9f4820d8.
+The server preserves 35 original runtime items, startup, declaration and four
+handoff cases after documented module/facade normalization. Its independent
+public proof passed six host cases, locked metadata/identity checks and actual
+debug/release RISC-V ELF and symbol checks. That is linkage/helper evidence,
+not QEMU or Source intake. Router's own provenance records the exact adaptations.
+The existing `shared/` content stays frozen at public Driver e75b1e2; Router
+selects that immutable package revision. Other Source local shared users remain
+unchanged until their own intake.
 
 Shared support/ is still the single pure Peer implementation, unchanged from
 public Driver8e6. Runtime Unit and Source consumers intentionally pin the named
@@ -43,15 +44,16 @@ runtime dependency; actual resolve closures are checked. Hub API remainscccef,
 Router API94fec, System API9e/client-support5a, Kernel3aa/System runtime9001.
 No System-peer publication, nominal SDK cascade, Source backlink or path override.
 
-The pure driver-cluster interface registers only migrated Hub and its explicit
-BUILD, with one manifest prefix units/hub/server/Cargo.toml. Units own their
-independent workspaces. Source/vanllia still selects the combined declaration
-set and Deployment. Other Driver runtimes and mixed device-recovery/system-shape
-acceptance remain Source-owned until their own slices. Cluster/public recursive
-proof and real Kernel3aa/System9001 SMP4/8 DMA/reclaim integration are separate
-pending gates; host transport/resource mocks are not Kernel proof. No full Driver
-or Router migration is claimed. The Source root had no project LICENSE; none is
-invented, and original Unit histories/headers/authorship remain preserved.
+The pure driver-cluster interface now registers Hub followed by Router, with
+manifest prefixes units/hub/server/Cargo.toml and units/router/server/Cargo.toml.
+Leaf UNIT/BUILD values are reexported, not copied; only aggregate order and
+manifest prefixes belong here. Source/vanllia still selects combined composition
+and Deployment. Other runtimes and mixed device recovery remain Source-owned.
+Cluster public recursive proof must precede Source intake and real SMP4/8
+acceptance. Existing Session/UART/RTC/PCI/IOMMU URL identities stay fixed despite
+repository renames. No full Driver or end-to-end Router migration is claimed.
+The Source root had no project LICENSE; none is invented, and original Unit
+histories/headers/authorship remain preserved.
 
 ---
 

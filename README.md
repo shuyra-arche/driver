@@ -1,66 +1,46 @@
 # Driver Cluster
 
-Aggregate for the Driver Cluster. The only migrated runtime Unit in this slice
-is Hub. Other Driver Unit runtimes remain pending; this repository does not claim
-a complete Driver Cluster or Source integration.
+The aggregate registers the independently published Hub and Router Units. Units
+own their declarations and runtimes; the aggregate fixes their revisions and
+orders their declarations and image builds. Source owns combined composition
+and Deployment. Other Driver runtimes remain pending.
 
-## Members
-
-| Path | Kind | Identity / role |
+| Path | Role | Fixed public revision |
 | --- | --- | --- |
-| `support` | local pure package | `driver-support` transport helper kept for aggregate-local work. Runtime Unit closures and Source consumers use immutable public `driver-support` `8e6de5a77aa52184bb6f7fbbcbc961f779e94629` with System Face5a. |
-| `shared` | local library package | `driver-shared` provider candidate for the three shared Driver modules, split from Source `c975cec`; exact public Git pins, no Peer and no `driver-support` dependency. |
-| `cluster` | local pure package | Explicit aggregate declaration; no runtime dependency on Hub server or Peer types. |
-| `units/hub` | fixed public submodule | Hub Unit `daa23b2611fee0c503bc6bd31a16121d97698ad6`, extending canonical Hub API `cccef3f325198c8390007ae88b064bae0f21f93e`. |
-| `units/router` | fixed public submodule | Router Unit `aa3033a7bd25b5d4199a50a6c00538475b62ef4c` (API + client), containing canonical Router API `94fec223f3c5df6c99a49527a65d016d88de3af4`; server/declaration/runtime remain Source/pending. Shared support is provided by `shared`; Source intake remains pending. |
+| `units/hub` | Hub API, client, server and declaration | `daa23b2611fee0c503bc6bd31a16121d97698ad6` |
+| `units/router` | Router API, client, server and declaration | `8a9416277539aefbc759c4f6519e1e8d93d63be3` |
+| `cluster` | Pure `driver-cluster` declaration and image registry | This aggregate revision |
+| `shared` | Existing Context, Device and Fail support | Bytes preserved from `e75b1e232f828666956fb7e02c61a7d84f13eb66` |
+| `support` | Existing pure Peer transport helper | Bytes preserved from canonical `8e6de5a77aa52184bb6f7fbbcbc961f779e94629` |
 
-`units/hub` owns its API/client/server/declaration and 65 runtime + 19 canonical
-host tests. Its public proof passed 84 host cases and RV debug/release Hub ELFs.
-Those tests are inside the Unit, not mirrored here. The aggregate does not mount
-Unit paths as workspace members.
+`driver-cluster` reexports the real public declarations as `hub` and `router`.
+`UNITS` and `IMAGE_BUILDS` contain Hub first, then Router. All build fields
+delegate to the owning Unit except each aggregate-relative manifest prefix:
+`units/hub/server/Cargo.toml` and `units/router/server/Cargo.toml`.
+No Unit workspace is mounted in the aggregate workspace, no declaration is
+copied, and the cluster has no runtime/server/Peer dependency.
 
-`units/router` now publishes the API plus the original client. Router server,
-declaration and runtime remain Source. Shared Context/Device/Fail support now
-also lives in the `driver-shared` provider; Source still consumes its original
-modules until a separate intake. No Router UnitFile or Router runtime is declared.
-The Unit's public leaf proof
-passed; aggregate public proof and Source/Kernel/System/QEMU acceptance remain
-pending (see `VALIDATION.md` and `ACCEPTANCE.md`).
+Canonical Router API remains `94fec223f3c5df6c99a49527a65d016d88de3af4` and
+Router client remains `aa3033a7bd25b5d4199a50a6c00538475b62ef4c`. Router server
+uses immutable `driver-shared` at `e75b1e232f828666956fb7e02c61a7d84f13eb66`.
+Hub API, support, System and all existing URL identities retain their pins.
+Repository renames are not incorporated into Cargo sources in this slice.
 
-## Declarations
+Root's candidate checks passed: locked online/offline metadata for the workspace
+and `tests/cluster`, two real aggregate registration/routing cases, host/RV
+workspace checks and `driver-cluster` debug/release library builds. Frozen
+support/shared/old tests, exact Unit gitlinks and old lock identities were checked.
+Only the cluster's Router dependency and the new Router declaration lock entry
+were added. See `VALIDATION.md` for scope and `ACCEPTANCE.md` for pending intake.
 
-`driver-cluster` reexports only the public Hub declaration as `hub`. `UNITS`
-contains the current migrated Hub Unit only. `IMAGE_BUILDS` contains one Hub
-build and delegates every leaf BUILD field except the manifest prefix:
-`units/hub/server/Cargo.toml`. The Unit BUILD itself is `server/Cargo.toml`;
-future Source intake uses `components/driver/units/hub/server/Cargo.toml`.
-Package/bin/image `hub-server`/`hub`/`hub`, empty features, RV64 release, and
-default features remain unchanged.
+```sh
+cargo test --locked --manifest-path tests/cluster/Cargo.toml --target x86_64-unknown-linux-gnu
+cargo build --locked -p driver-cluster --lib --target riscv64gc-unknown-none-elf --release
+```
 
-## Pending
-
-UART, RTC, PCI, IOMMU, virtio-blk and the device supervisor Unit runtimes remain
-pending. Actual Source `Kernel3aa`/`System9001` SMP4/8 DMA, authorization,
-claim/grant, fence, close/inspect/settle, reclamation and generation acceptance
-remains pending and mandatory; host tests are not a substitute. Source Phase4 is
-not assigned. Root owns selected version records, provenance, Git/submodule
-metadata, locks and public proof. See `ACCEPTANCE.md`.
-
-## `driver-shared` provider candidate (local gates passed)
-
-`shared/` is the local package `driver-shared`, split from Source
-`c975cec91273261509c8f9f715643830c2fed5c5` `programs/src/driver/shared/`:
-`context::{Context, Step}`, `device::{Ask, Hub, Device}` and `fail::Fail`, one
-data structure per file with unchanged method bodies, signatures, field order,
-strings and waits. It is a provider candidate only: it is not a Unit, changes no
-`UNITS`/`IMAGE_BUILDS` entry, and no Source consumer, gitlink or Unit submodule
-is touched. Exact public Git pins are in `shared/Cargo.toml`; the package has no
-`Peer` and does not depend on `driver-support`. Root's local gates passed under
-a shared build lock: twelve commands with raw exit 0, all twelve original items
-AST/body token-identical, four pure failure-report host cases, and host/RV
-debug/release library builds. The eleven selected external packages resolved to
-their exact Git revisions; the path packages are workspace members
-(`driver-shared`, `driver-support` with byte-identical Peer, `driver-cluster`),
-and `tests/shared` takes only the new `driver-shared` by path. A full public
-clean checkout is still REQUIRED BEFORE CONSUMER and has not yet been recorded.
-See `VALIDATION.md` and `ACCEPTANCE.md`.
+Before Source consumes this aggregate, Root must verify a clean public full-SHA
+checkout with exact recursive gitlinks and a separate build directory. Source
+Router intake and real SMP4/8 acceptance then run in their own fresh role group
+and serial queue. No QEMU, full Driver migration or complete historical scenario
+matrix is claimed by these aggregate tests. Existing provider evidence is not
+counted as a new execution of those tests.

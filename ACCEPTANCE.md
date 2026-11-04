@@ -1,5 +1,24 @@
 # Driver aggregate acceptance
 
+## Current Router registration slice
+
+Router provider 8a9416277539aefbc759c4f6519e1e8d93d63be3 has passed its clean
+public locked proof: six host cases and actual debug/release ELF/symbol checks.
+This aggregate's 14 candidate commands and two registration/routing cases pass.
+Review, public recursive checkout and Source intake are subsequent gates;
+consumer pinning must wait for the aggregate public full-SHA receipt.
+
+The next Source slice preserves existing Deployment, ready and reclaim behavior,
+then runs actual SMP4/8 acceptance under the shared serial lock. Broader DMA,
+authorization, fence, generation and historical scenarios below are not silently
+claimed by those runs. All repository URL renames remain a separate queue.
+No automatic merge is authorized.
+
+## Historical acceptance checkpoint at base e75 (retained)
+
+The following pending statuses describe the earlier snapshots. Current selected
+Router is 8a941627; immutable API94/clientaa, Hub daa and support8e6 remain fixed.
+
 Status: **PENDING**. No Source Kernel3aa/System9001 integration run, QEMU
 acceptance, aggregate native proof, or public aggregate proof has been performed
 or claimed by the worker. The Router Unit `aa3033a…` leaf proof passed
