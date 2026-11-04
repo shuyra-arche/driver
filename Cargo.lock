@@ -20,6 +20,8 @@ version = "0.1.0"
 dependencies = [
  "hub-declaration",
  "router-declaration",
+ "rtc-declaration",
+ "uart-declaration",
  "unit",
 ]
 
@@ -211,6 +213,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "rtc-api"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-rtc.git?rev=f14cca51af02061350b2d1aa9f00f95c6dc06e15#f14cca51af02061350b2d1aa9f00f95c6dc06e15"
+dependencies = [
+ "env",
+ "mold",
+ "system-api",
+ "wire",
+]
+
+[[package]]
+name = "rtc-declaration"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-rtc.git?rev=f14cca51af02061350b2d1aa9f00f95c6dc06e15#f14cca51af02061350b2d1aa9f00f95c6dc06e15"
+dependencies = [
+ "env",
+ "router-api",
+ "rtc-api",
+ "system-api",
+ "unit",
+]
+
+[[package]]
 name = "scopeguard"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -279,6 +304,15 @@ checksum = "53f8ad14fa1c1b8635114abf9721076fe1e869572a5f26a52690f407292c80dc"
 dependencies = [
  "allocator-api2",
  "lock_api",
+]
+
+[[package]]
+name = "uart-declaration"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-uart.git?rev=298bc8809f297f46bc7592aebc96540b7b492efc#298bc8809f297f46bc7592aebc96540b7b492efc"
+dependencies = [
+ "system-api",
+ "unit",
 ]
 
 [[package]]

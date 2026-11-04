@@ -1,14 +1,24 @@
 #![no_std]
-//! Explicit Driver Cluster declarations for the migrated Hub and Router slices.
+//! Explicit Driver Cluster declarations for the migrated Hub, Router, UART and
+//! RTC slices.
 //!
-//! Only the Hub and Router `UNIT`/`BUILD` declarations are registered here.
-//! Router server integration, UART, RTC, PCI, IOMMU, virtio-blk and the device
-//! supervisor remain pending; this is not a complete Driver Cluster.
+//! Each Unit owns its declaration and runtime. This aggregate only selects,
+//! reexports and orders the four real `UNIT`/`BUILD` declarations.
+//!
+//! Router server integration, PCI, IOMMU, virtio-blk and the device supervisor
+//! remain pending; this is not a complete Driver Cluster.
 
 pub use hub_declaration as hub;
 pub use router_declaration as router;
+pub use rtc_declaration as rtc;
+pub use uart_declaration as uart;
 
-pub static UNITS: &[&unit::UnitFile] = &[&hub::UNIT, &router::UNIT];
+pub static UNITS: &[&unit::UnitFile] = &[
+    &hub::UNIT,
+    &router::UNIT,
+    &uart::UNIT,
+    &rtc::UNIT,
+];
 
 pub static IMAGE_BUILDS: &[unit::ImageBuild] = &[
     unit::ImageBuild {
@@ -30,5 +40,25 @@ pub static IMAGE_BUILDS: &[unit::ImageBuild] = &[
         target: router::BUILD.target,
         profile: router::BUILD.profile,
         default_features: router::BUILD.default_features,
+    },
+    unit::ImageBuild {
+        image: uart::BUILD.image,
+        manifest: "units/uart/server/Cargo.toml",
+        package: uart::BUILD.package,
+        bin: uart::BUILD.bin,
+        features: uart::BUILD.features,
+        target: uart::BUILD.target,
+        profile: uart::BUILD.profile,
+        default_features: uart::BUILD.default_features,
+    },
+    unit::ImageBuild {
+        image: rtc::BUILD.image,
+        manifest: "units/rtc/server/Cargo.toml",
+        package: rtc::BUILD.package,
+        bin: rtc::BUILD.bin,
+        features: rtc::BUILD.features,
+        target: rtc::BUILD.target,
+        profile: rtc::BUILD.profile,
+        default_features: rtc::BUILD.default_features,
     },
 ];

@@ -13,4 +13,6 @@ doctest = false
 [dependencies]
 hub-declaration = { git = "https://github.com/shuyra-arche/hub.git", rev = "daa23b2611fee0c503bc6bd31a16121d97698ad6" }
 router-declaration = { git = "https://github.com/shuyra-arche/router.git", rev = "8a9416277539aefbc759c4f6519e1e8d93d63be3" }
+rtc-declaration = { git = "https://github.com/shuyra-arche/driver-rtc.git", rev = "f14cca51af02061350b2d1aa9f00f95c6dc06e15" }
+uart-declaration = { git = "https://github.com/shuyra-arche/driver-uart.git", rev = "298bc8809f297f46bc7592aebc96540b7b492efc" }
 unit = { git = "https://github.com/shuyra-arche/unit.git", rev = "90396f0fda376e0693fb1b9553aa21864d241057" }

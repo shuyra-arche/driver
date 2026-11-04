@@ -1,46 +1,53 @@
 # Driver Cluster
 
-The aggregate registers the independently published Hub and Router Units. Units
-own their declarations and runtimes; the aggregate fixes their revisions and
-orders their declarations and image builds. Source owns combined composition
-and Deployment. Other Driver runtimes remain pending.
+The aggregate registers the independently published Hub, Router, UART and RTC
+Units. Units own their declarations and runtimes; the aggregate fixes their
+revisions and orders their declarations and image builds. Source owns combined
+composition and Deployment.
 
 | Path | Role | Fixed public revision |
 | --- | --- | --- |
 | `units/hub` | Hub API, client, server and declaration | `daa23b2611fee0c503bc6bd31a16121d97698ad6` |
 | `units/router` | Router API, client, server and declaration | `8a9416277539aefbc759c4f6519e1e8d93d63be3` |
+| `units/uart` | UART API, client, server and declaration | `298bc8809f297f46bc7592aebc96540b7b492efc` |
+| `units/rtc` | RTC API, client, server and declaration | `f14cca51af02061350b2d1aa9f00f95c6dc06e15` |
 | `cluster` | Pure `driver-cluster` declaration and image registry | This aggregate revision |
 | `shared` | Existing Context, Device and Fail support | Bytes preserved from `e75b1e232f828666956fb7e02c61a7d84f13eb66` |
 | `support` | Existing pure Peer transport helper | Bytes preserved from canonical `8e6de5a77aa52184bb6f7fbbcbc961f779e94629` |
 
-`driver-cluster` reexports the real public declarations as `hub` and `router`.
-`UNITS` and `IMAGE_BUILDS` contain Hub first, then Router. All build fields
-delegate to the owning Unit except each aggregate-relative manifest prefix:
-`units/hub/server/Cargo.toml` and `units/router/server/Cargo.toml`.
-No Unit workspace is mounted in the aggregate workspace, no declaration is
-copied, and the cluster has no runtime/server/Peer dependency.
+`driver-cluster` reexports the real public declarations as `hub`, `router`,
+`uart` and `rtc`. `UNITS` and `IMAGE_BUILDS` contain Hub, Router, UART and RTC in
+that order. All build fields delegate to the owning Unit except each
+aggregate-relative manifest prefix: `units/<unit>/server/Cargo.toml`. No Unit
+workspace is mounted in the aggregate workspace, no declaration is copied, and
+the cluster has no runtime/server/Peer dependency.
+
+Startup dependencies stay owned by the Units. UART and RTC declare Operator,
+Hub and Router in that order; the existing Hub and Router declarations are
+unchanged. The aggregate creates no retry, rollback or synchronization state.
 
 Canonical Router API remains `94fec223f3c5df6c99a49527a65d016d88de3af4` and
 Router client remains `aa3033a7bd25b5d4199a50a6c00538475b62ef4c`. Router server
 uses immutable `driver-shared` at `e75b1e232f828666956fb7e02c61a7d84f13eb66`.
 Hub API, support, System and all existing URL identities retain their pins.
-Repository renames are not incorporated into Cargo sources in this slice.
+Repository renames are not incorporated into existing Cargo source URLs.
 
-Root's candidate checks passed: locked online/offline metadata for the workspace
-and `tests/cluster`, two real aggregate registration/routing cases, host/RV
-workspace checks and `driver-cluster` debug/release library builds. Frozen
-support/shared/old tests, exact Unit gitlinks and old lock identities were checked.
-Only the cluster's Router dependency and the new Router declaration lock entry
-were added. See `VALIDATION.md` for scope and `ACCEPTANCE.md` for pending intake.
+Candidate results are recorded in `RTC_UART_VALIDATION.md`: 31 commands returned
+raw 0; six online/offline graph proofs passed; 19 shared/support/old-test files
+and old lock package identities were preserved; all four recursive pins matched;
+each consumer API had one RTC/UART source; and four debug/release RV ELF binaries
+were produced. Host tests cover 39 distinct cases (cluster 2, shared 4, RTC 11 +
+10, UART 6 + 6), including a final cluster rerun, under nightly-2026-09-04.
+Host/RV workspace checks and cluster libraries passed in debug and release.
+Public fresh-checkout verification and independent review receipts remain
+pending; no QEMU or runtime result is claimed. See `RTC_UART_INTAKE.md` for
+immutable revisions, the registration graph and Vanllia/Terminal prerequisites.
 
 ```sh
+git submodule update --init --recursive
 cargo test --locked --manifest-path tests/cluster/Cargo.toml --target x86_64-unknown-linux-gnu
 cargo build --locked -p driver-cluster --lib --target riscv64gc-unknown-none-elf --release
 ```
 
-Before Source consumes this aggregate, Root must verify a clean public full-SHA
-checkout with exact recursive gitlinks and a separate build directory. Source
-Router intake and real SMP4/8 acceptance then run in their own fresh role group
-and serial queue. No QEMU, full Driver migration or complete historical scenario
-matrix is claimed by these aggregate tests. Existing provider evidence is not
-counted as a new execution of those tests.
+No QEMU, hardware, full Driver migration or complete historical scenario matrix
+is claimed by these aggregate tests.
