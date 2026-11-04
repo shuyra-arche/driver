@@ -1,0 +1,22 @@
+[workspace]
+
+[package]
+name = "driver-shared-host-tests"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+bench = false
+doctest = false
+
+[dependencies]
+driver-shared = { path = "../../shared" }
+env = { git = "https://github.com/shuyra-arche/env.git", rev = "d3000253cd5d13d466e91fafd4dbb27a5ec5aaae" }
+ipc = { git = "https://github.com/shuyra-arche/ipc.git", rev = "29ad97dc08d9dfc4ea6578b1b77874261229b3b5" }
+system-client = { git = "https://github.com/shuyra-arche/system.git", rev = "5a792ff2d39901a970925b1a6d63206adf6c16d8" }
+execution = { git = "https://github.com/shuyra-arche/execution.git", rev = "1b333a28bc4c34beaea3f7986a9bb6e8ab2db414" }
+resource = { git = "https://github.com/shuyra-arche/resource.git", rev = "dbc96834f50f094b5c386e54a0a2ae5560dcd7f8" }
+hub-api = { git = "https://github.com/shuyra-arche/hub.git", rev = "cccef3f325198c8390007ae88b064bae0f21f93e" }
+router-client = { git = "https://github.com/shuyra-arche/router.git", rev = "aa3033a7bd25b5d4199a50a6c00538475b62ef4c" }

@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["cluster", "support"]
+members = ["cluster", "shared", "support"]
 exclude = ["units"]
 
 [workspace.package]
