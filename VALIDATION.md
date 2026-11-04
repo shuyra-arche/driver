@@ -1,12 +1,16 @@
 # Driver aggregate validation scope
 
-The current two-layer aggregate has fixed Hubdaa23b2 and Router94fec Unit
-submodules. Their full public leaf proofs are separate: Hub84 host cases and
-actual RV executables; Router pure host/RV API libraries with no runtime claim.
-The aggregate requires its own locked metadata, pure host/RV libraries, exact
-recursive public gitlinks and clean intended tree before Source integration.
-Real Source/Kernel3aa/System9001 SMP4/8 DMA/close/inspect/settle/reclaim acceptance
-remains PENDING. No prior monorepo-layout pass is carried to changed pins.
+The current aggregate has fixed Hub `daa23b2…` and Router `aa3033a…` Unit
+submodules. Hub and Router carry separate public leaf proofs: Hub 84 host cases
+and actual RV executables; Router Unit `aa3033a` passed nine byte-equality checks,
+canonical API identity, online/offline metadata and host/RV debug/release
+library builds, with API + client only and no runtime claim. That Router leaf
+proof is not a proof of this aggregate. The aggregate still requires its own
+locked metadata, pure host/RV libraries, exact recursive public gitlinks and a
+clean intended tree before Source integration; current aggregate public proof is
+PENDING. Real Source/Kernel3aa/System9001 SMP4/8 DMA/close/inspect/settle/reclaim
+acceptance remains PENDING. No prior monorepo-layout pass is carried to changed
+pins.
 
 The following is retained history for the original Driver8e6 snapshot; it is not
 a statement that the new aggregate or its Source runtime has already passed.
