@@ -14,6 +14,8 @@ version = "0.1.0"
 dependencies = [
  "hub-declaration",
  "router-declaration",
+ "rtc-declaration",
+ "uart-declaration",
  "unit",
 ]
 
@@ -115,6 +117,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "rtc-api"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-rtc.git?rev=f14cca51af02061350b2d1aa9f00f95c6dc06e15#f14cca51af02061350b2d1aa9f00f95c6dc06e15"
+dependencies = [
+ "env",
+ "mold",
+ "system-api",
+ "wire",
+]
+
+[[package]]
+name = "rtc-declaration"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-rtc.git?rev=f14cca51af02061350b2d1aa9f00f95c6dc06e15#f14cca51af02061350b2d1aa9f00f95c6dc06e15"
+dependencies = [
+ "env",
+ "router-api",
+ "rtc-api",
+ "system-api",
+ "unit",
+]
+
+[[package]]
 name = "syn"
 version = "2.0.119"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -133,6 +158,15 @@ dependencies = [
  "env",
  "mold",
  "wire",
+]
+
+[[package]]
+name = "uart-declaration"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/driver-uart.git?rev=298bc8809f297f46bc7592aebc96540b7b492efc#298bc8809f297f46bc7592aebc96540b7b492efc"
+dependencies = [
+ "system-api",
+ "unit",
 ]
 
 [[package]]

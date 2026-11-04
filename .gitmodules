@@ -4,3 +4,9 @@
 [submodule "units/router"]
 	path = units/router
 	url = https://github.com/shuyra-arche/driver-router.git
+[submodule "units/uart"]
+	path = units/uart
+	url = https://github.com/shuyra-arche/driver-uart.git
+[submodule "units/rtc"]
+	path = units/rtc
+	url = https://github.com/shuyra-arche/driver-rtc.git
