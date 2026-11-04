@@ -1,0 +1,85 @@
+use env::{PieToken, TaskId, Wait};
+use ipc::session::Session;
+use router_client::Line;
+use system_api::operator::{self as operator_api, Permit};
+use system_client::operator::{self, Capability};
+use system_support::debug;
+
+use super::Step;
+
+/// 要找的那位服务（线路由者）在树上的名字
+pub struct Context {
+    pub session: Session,
+    capability: Capability,
+}
+
+impl Context {
+    /// **只开会话**：入口孔不再是这一层的事（域自己那一枚由它自己铸、自己落）。
+    pub fn open(sire: TaskId, ms: Wait) -> Result<Context, Step> {
+        let session = Session::open(sire, operator::BERTH, ms).map_err(|_| Step::Tree)?;
+        let capability = Capability::injected(0, sire, ms).map_err(|_| Step::Tree)?;
+        Ok(Context {
+            session,
+            capability,
+        })
+    }
+
+    pub fn capability(&self) -> &Capability {
+        &self.capability
+    }
+
+    /// 上树落**一枚门牌**（`entry` = 这一域自己铸的那一枚孔）。
+    pub fn plate(&self, entry: PieToken, me: &str, ms: Wait) {
+        let anchor = self.capability.anchor().expect("driver: namespace anchor");
+        let view =
+            operator_api::ResourceView::new(env::Access::STORE).expect("driver: endpoint view");
+        self.capability
+            .bind(
+                anchor,
+                me,
+                entry,
+                view,
+                Permit::Public,
+                operator_api::OperationId(1),
+                ms,
+            )
+            .expect("driver: endpoint binding");
+    }
+
+    /// **它拿一面借来的视图**而不是收走会话：`Context` 持着这条会话（`uart` 那一台还要从它
+    /// 编自己那两面），故 operator::Face::from 按值取一份视图（树那三格是 `Copy`）
+    pub fn line(&self, line: u32, ms: Wait) -> Result<Line, ()> {
+        let tree = operator::Face::from(&self.session);
+        let base = tree
+            .resolve(system_api::namespace::SERVICE, ms)
+            .map_err(|_| ())?;
+        let entry = match tree.tile_from(base, router_api::ENTRY, ms) {
+            Ok(entry) => entry,
+            Err(fail) => {
+                debug::put(&alloc::format!("line: tile failed {fail:?}"));
+                return Err(());
+            }
+        };
+        let entry = match entry.token(ms) {
+            Ok(entry) => entry,
+            Err(fail) => {
+                debug::put(&alloc::format!("line: token failed {fail:?}"));
+                return Err(());
+            }
+        };
+        let held = Line::occupy(entry, line, ms);
+        if held.is_err() {
+            // **那一手自己记了"死在哪一格"**（`deny(cause, code)` 两个静态）：它把七个出口折成
+            // 同一个 Fail::Denied，而那两个数就是这七格的钥匙——探子把它们印出来。
+            use core::sync::atomic::Ordering;
+            use router_client::client::{OCCUPY_CODE, OCCUPY_DENY};
+            debug::put(&alloc::format!(
+                "line: occupy failed line={line} entry={} cause={} code={}",
+                entry.get(),
+                OCCUPY_DENY.load(Ordering::Relaxed),
+                OCCUPY_CODE.load(Ordering::Relaxed),
+            ));
+        }
+        held.map_err(|_| ())
+    }
+}

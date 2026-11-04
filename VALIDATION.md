@@ -75,3 +75,31 @@ composition, Kernel `3aa0a155f825fbf377fc8d04009472ca67cbbf8c`, System runtime
 pending at this provider publication. No1024 long matrix or full Driver migration
 is claimed. Root retains raw command exits, actual artifact metadata, independent
 review, source maps and immutable copied ELF evidence.
+
+## `driver-shared` candidate validation (provider-local, Root-run)
+
+Root ran twelve commands under a shared build lock; all returned raw exit 0 and
+the raw outputs are in `evidence/driver-shared-next/provider-final/`:
+
+- `item-body-equality`: all 12 original shared items AST/body token-identical to
+  Source `c975cec`, ignoring docs, imports and module layout.
+- `metadata-online` / `metadata-offline` and `test-metadata-online` /
+  `test-metadata-offline`: the eleven selected external packages resolve to
+  their exact Git revisions, and the lock's existing tuples are preserved. The
+  path packages are the workspace members `driver-shared`, `driver-support` and
+  `driver-cluster`; `tests/shared` takes only `driver-shared` by path.
+- `host-shared-tests`: the four pure report cases pass — nonempty note, empty
+  note reading `None`, `Result<(), Fail>::Err` code/text fidelity, and `Ok(())`
+  reporting `EXIT_OK` with no note. The signature/field identity probes compile
+  but are not runtime cases.
+- `host-workspace-check`, `host-debug`, `host-release`, `rv-workspace-check`,
+  `rv-debug`, `rv-release`: host and `riscv64gc-unknown-none-elf` checks plus
+  `driver-shared` library builds in both profiles.
+
+`driver-support` is a local path workspace package whose `Peer` bytes match
+`8e6de5a…`; that is a byte comparison only, not a Git workspace-identity claim.
+No Source consumer, gitlink or Unit submodule changed, and the older aggregate
+gates above remain as recorded. The 19 Source host tests are baseline
+revalidation, not candidate proof. A full public clean checkout is still
+REQUIRED BEFORE CONSUMER; no kernel, QEMU, Source-intake or full-Driver result is
+claimed.

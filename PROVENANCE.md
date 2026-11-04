@@ -30,7 +30,9 @@ client is byte-exact to Source ac5b61d8880c499f8cee4c60929c06cc9f4820d8 and keep
 the canonical router-api Git pin 94fec. Its public leaf proof passed nine byte
 checks, canonical API identity, online/offline metadata and host/RV debug/release
 libraries; that is not an aggregate public proof or a runtime claim. Router
-server/declaration/shared support/runtime remain pending in Source. The Unit's
+server/declaration/runtime remain pending in Source. The new `shared/` package
+provides Context/Device/Fail; Source still consumes its original local modules
+until a separate intake. The Unit's
 PROVENANCE records the API and client paths/hashes and original author.
 
 Shared support/ is still the single pure Peer implementation, unchanged from
@@ -192,3 +194,29 @@ and capability-import type splits described above add destination files.
 | `programs/tests/capability-import/Cargo.toml` | `units/hub/tests/capability-import/Cargo.toml` | `744200a959b006debdb77187045e2b5f278989d29384a99512258e0c36e5d003` |
 | `programs/tests/capability-import/hub_serve.rs` | `units/hub/tests/capability-import/hub_serve.rs` | `fe34b20e7656049b5e9453adec1b4824133fc8b7ae6c6d71c39a3c5f00a3a7b8` |
 | `programs/tests/capability-import/lib.rs` | `units/hub/tests/capability-import/lib.rs` | `734427e2d29a2d731628a444935ace0a3fac471a95c1985dd04d0fe81a86cd22` |
+
+## `driver-shared` provider candidate (Source `c975cec`)
+
+The three Source files `programs/src/driver/shared/{context,device,fail}.rs` at
+`c975cec91273261509c8f9f715643830c2fed5c5` are split mechanically into
+`shared/src/{context/{mod,context,step},device/{mod,ask,hub,device},fail}.rs`.
+Only these import adjustments are applied: `programs::debug` →
+`system_support::debug`; `crate::unit::Died` → `env::Reason as Died`;
+`crate::{Exit, Report}` → `execution::boot::{Exit, Report}`;
+`crate::driver::shared::fail::Fail` → `crate::fail::Fail`; and the sibling
+`super::{Step, Ask}` imports required by the split. Module docs move with their
+modules; the `fail` doc's Source-relative `E_UART` intra-doc link becomes plain
+backticked text. Method bodies, field order, visibility, panic/debug/failure
+strings and `Wait` values are unchanged. The package pins the eleven exact
+public Git revisions in `shared/Cargo.toml`; it carries no Peer, does not depend
+on `driver-support`, and adds no Unit declaration. Root's local gates resolved
+all eleven selected external packages to exactly those Git revisions and proved
+all twelve original items AST/body token-identical to Source `c975cec` (twelve
+commands, raw exit 0; evidence under
+`evidence/driver-shared-next/provider-final/`). The local workspace keeps
+`driver-support` as a path workspace package whose `Peer` bytes match `8e6de5a…`
+(`peer.rs` hash `ca281294…`); that is a byte comparison, not a claim of that
+package's Git workspace identity. Existing lock tuples, `cluster/`, underlying
+`support/` bytes and the Unit gitlinks are unchanged; Root generated the new
+lock entries. A full public clean checkout is still required before consumption
+and is not yet claimed.

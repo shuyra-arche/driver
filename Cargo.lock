@@ -23,6 +23,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "driver-shared"
+version = "0.1.0"
+dependencies = [
+ "env",
+ "execution",
+ "hub-api",
+ "hub-client",
+ "ipc",
+ "resource",
+ "router-api",
+ "router-client",
+ "system-api",
+ "system-client",
+ "system-support",
+]
+
+[[package]]
 name = "driver-support"
 version = "0.1.0"
 dependencies = [
@@ -61,6 +78,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "fdt"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "784a4df722dc6267a04af36895398f59d21d07dce47232adf31ec0ff2fa45e67"
+
+[[package]]
 name = "hub-api"
 version = "0.1.0"
 source = "git+https://github.com/shuyra-arche/hub.git?rev=cccef3f325198c8390007ae88b064bae0f21f93e#cccef3f325198c8390007ae88b064bae0f21f93e"
@@ -68,6 +91,20 @@ dependencies = [
  "env",
  "mold",
  "system-api",
+ "wire",
+]
+
+[[package]]
+name = "hub-client"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/hub.git?rev=daa23b2611fee0c503bc6bd31a16121d97698ad6#daa23b2611fee0c503bc6bd31a16121d97698ad6"
+dependencies = [
+ "env",
+ "hub-api",
+ "ipc",
+ "resource",
+ "system-api",
+ "system-client",
  "wire",
 ]
 
@@ -139,6 +176,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "router-api"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/router.git?rev=94fec223f3c5df6c99a49527a65d016d88de3af4#94fec223f3c5df6c99a49527a65d016d88de3af4"
+dependencies = [
+ "env",
+ "mold",
+ "system-api",
+ "wire",
+]
+
+[[package]]
+name = "router-client"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/router.git?rev=aa3033a7bd25b5d4199a50a6c00538475b62ef4c#aa3033a7bd25b5d4199a50a6c00538475b62ef4c"
+dependencies = [
+ "env",
+ "ipc",
+ "resource",
+ "router-api",
+ "wire",
+]
+
+[[package]]
 name = "scopeguard"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -185,6 +245,18 @@ dependencies = [
  "resource",
  "system-api",
  "wire",
+]
+
+[[package]]
+name = "system-support"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/system.git?rev=5a792ff2d39901a970925b1a6d63206adf6c16d8#5a792ff2d39901a970925b1a6d63206adf6c16d8"
+dependencies = [
+ "env",
+ "execution",
+ "fdt",
+ "hub-api",
+ "resource",
 ]
 
 [[package]]
