@@ -19,6 +19,7 @@ name = "driver-cluster"
 version = "0.1.0"
 dependencies = [
  "hub-declaration",
+ "router-declaration",
  "unit",
 ]
 
@@ -196,6 +197,17 @@ dependencies = [
  "resource",
  "router-api",
  "wire",
+]
+
+[[package]]
+name = "router-declaration"
+version = "0.1.0"
+source = "git+https://github.com/shuyra-arche/router.git?rev=8a9416277539aefbc759c4f6519e1e8d93d63be3#8a9416277539aefbc759c4f6519e1e8d93d63be3"
+dependencies = [
+ "env",
+ "router-api",
+ "system-api",
+ "unit",
 ]
 
 [[package]]

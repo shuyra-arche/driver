@@ -1,5 +1,33 @@
 # Driver aggregate validation scope
 
+## Current Router registration slice
+
+Root's 14 candidate commands passed with raw exit 0 under the shared native
+build lock and 6 GiB space guard. These include lock generation, locked
+online/offline metadata for the root and standalone `tests/cluster`, host/RV
+workspace checks, host/RV debug/release `driver-cluster` library builds, two real
+aggregate cases, and independent identity/frozen-file/lock proof. Tests assert
+Hub then Router pointer identity, validity/order and actual leaf BUILD delegation,
+unique names/images/routes, and correct aggregate manifest paths.
+
+Hub stays daa23b2611fee0c503bc6bd31a16121d97698ad6. Router is fixed to
+8a9416277539aefbc759c4f6519e1e8d93d63be3, already independently public-verified
+with six host cases and two real ELF builds. This aggregate does not rerun or
+recount that provider proof. Support/shared and old shared tests remain byte
+identical to base e75b1e2; all old lock packages remain unchanged except the
+expected new Router declaration edge on driver-cluster. One Router declaration
+Git package is added. No runtime package enters the cluster closure.
+
+The aggregate candidate requires review, publication and a fresh public locked
+repeat with recursive Unit gitlinks before Source intake. This is not a new ELF,
+QEMU or Source runtime result. A new genuine DeepSeek namer/worker/reviewer group
+owns this PR; Root owns native gates and Git, and authored no product Core.
+
+## Historical validation checkpoints (retained from base e75)
+
+The following sections record earlier snapshots and their then-pending gates;
+they do not override the current slice or its later public acceptance receipt.
+
 The current aggregate has fixed Hub `daa23b2…` and Router `aa3033a…` Unit
 submodules. Hub and Router carry separate public leaf proofs: Hub 84 host cases
 and actual RV executables; Router Unit `aa3033a` passed nine byte-equality checks,
