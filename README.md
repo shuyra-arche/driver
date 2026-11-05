@@ -12,7 +12,7 @@ composition and Deployment.
 | `units/uart` | UART API, client, server and declaration | `298bc8809f297f46bc7592aebc96540b7b492efc` |
 | `units/rtc` | RTC API, client, server and declaration | `f14cca51af02061350b2d1aa9f00f95c6dc06e15` |
 | `cluster` | Pure `driver-cluster` declaration and image registry | This aggregate revision |
-| `shared` | Existing Context, Device and Fail support | Bytes preserved from `e75b1e232f828666956fb7e02c61a7d84f13eb66` |
+| `shared` | Existing Context, Device and Fail support | Implementation preserved from `e75b1e232f828666956fb7e02c61a7d84f13eb66`; SDK selection below |
 | `support` | Existing pure Peer transport helper | Bytes preserved from canonical `8e6de5a77aa52184bb6f7fbbcbc961f779e94629` |
 
 `driver-cluster` reexports the real public declarations as `hub`, `router`,
@@ -29,10 +29,17 @@ unchanged. The aggregate creates no retry, rollback or synchronization state.
 Canonical Router API remains `94fec223f3c5df6c99a49527a65d016d88de3af4` and
 Router client remains `aa3033a7bd25b5d4199a50a6c00538475b62ef4c`. Router server
 uses immutable `driver-shared` at `e75b1e232f828666956fb7e02c61a7d84f13eb66`.
-Hub API, support, System and all existing URL identities retain their pins.
+Unit manifests retain their existing provider pins and source URL identities.
 Repository renames are not incorporated into existing Cargo source URLs.
 
-Candidate results are recorded in `RTC_UART_VALIDATION.md`: 31 commands returned
+The aggregate and shared host fixture now select the canonical Kernel SDK and
+the matching System client/support packages from fixed public commits. Shared
+uses Execution's Client-backed implementation. No Context, Device, Fail, Peer,
+Unit or test body changes. See [SDK validation](SDK_VALIDATION.md) for the exact
+source selection, raw library builds and current test results.
+
+The earlier RTC/UART intake results are recorded in `RTC_UART_VALIDATION.md`:
+31 commands returned
 raw 0; six online/offline graph proofs passed; 19 shared/support/old-test files
 and old lock package identities were preserved; all four recursive pins matched;
 each consumer API had one RTC/UART source; and four debug/release RV ELF binaries
