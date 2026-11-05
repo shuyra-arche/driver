@@ -1,5 +1,10 @@
 # Driver Cluster
 
+Current provider gitlinks and validation are recorded in
+[UNIT_TOML_INTAKE.md](UNIT_TOML_INTAKE.md). The revision table and Rust registry
+below describe the retained legacy Cargo interface; TOML discovery reads the
+provider-owned `unit.toml` files at the current gitlinks.
+
 The aggregate registers the independently published Hub, Router, UART and RTC
 Units. Units own their declarations and runtimes; the aggregate fixes their
 revisions and orders their declarations and image builds. Source owns combined
