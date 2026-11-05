@@ -10,3 +10,12 @@
 [submodule "units/rtc"]
 	path = units/rtc
 	url = https://github.com/shuyra-arche/driver-rtc.git
+[submodule "units/pci"]
+	path = units/pci
+	url = https://github.com/shuyra-arche/driver-pci.git
+[submodule "units/iommu"]
+	path = units/iommu
+	url = https://github.com/shuyra-arche/driver-iommu.git
+[submodule "units/virtio-blk"]
+	path = units/virtio-blk
+	url = https://github.com/shuyra-arche/driver-virtio-block.git
