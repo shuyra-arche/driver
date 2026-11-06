@@ -1,12 +1,12 @@
 #![no_std]
-//! Explicit Driver Cluster declarations for the migrated Hub, Router, UART and
-//! RTC slices.
+//! Compatibility Driver Cluster declarations for Hub, Router, UART and RTC.
 //!
 //! Each Unit owns its declaration and runtime. This aggregate only selects,
 //! reexports and orders the four real `UNIT`/`BUILD` declarations.
 //!
-//! Router server integration, PCI, IOMMU, virtio-blk and the device supervisor
-//! remain pending; this is not a complete Driver Cluster.
+//! Current Vanllia discovery reads provider-owned `unit.toml` files through the
+//! aggregate's submodules, including PCI, IOMMU and VirtIO block. This legacy
+//! Rust registry is not the complete TOML-discovered Unit collection.
 
 pub use hub_declaration as hub;
 pub use router_declaration as router;
