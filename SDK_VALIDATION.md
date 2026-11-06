@@ -1,10 +1,26 @@
 # Canonical SDK dependency validation
 
-This candidate starts at the published Driver checkpoint
-`bb3427e179e87b640e0d51115a44544fae231252`. Only dependency manifests, the two
-affected locks and documentation change. Context, Device, Fail, Peer, Cluster,
-Unit and test implementations, all four Unit gitlinks, and the historical
-RTC/UART validation records are unchanged.
+The initial SDK validation below used the published Driver checkpoint
+`bb3427e179e87b640e0d51115a44544fae231252`. At that stage only dependency
+manifests, the two affected locks and documentation changed. Context, Device,
+Fail, Peer, Cluster, Unit and test implementations, all four Unit gitlinks,
+and the historical RTC/UART validation records were unchanged.
+
+## Default branch integration
+
+The candidate also incorporates the actual default branch
+`codex/driver-cluster` at `abe8d1a70cfce04be50fa7ebbe5527830bc86ca0`, preserving
+all seven provider gitlinks: Hub, Router, UART, RTC, IOMMU, PCI and VirtIO block.
+Relative to that default, all Rust and Unit implementations, `.gitmodules` and
+the seven gitlinks are identical; the SDK change still consists of manifests,
+locks and documentation.
+
+The automatic merge tree `44f26fe033c68023ffa389c7e4231ae23083464e`, before this
+documentation clarification, independently passed the same raw locked/offline
+RV64 workspace check and release build below. Its active normal/build graph
+retains one canonical API owner, and the two lock hashes below are unchanged.
+The four-plus-two host fixture results remain evidence from the initial
+four-provider SDK checkpoint, not new seven-Unit runtime acceptance.
 
 ## Public source selection
 

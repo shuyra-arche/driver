@@ -1,5 +1,15 @@
 # Driver Cluster
 
+Current provider gitlinks and device-driver intake are recorded in
+[DEVICE_DRIVER_INTAKE.md](DEVICE_DRIVER_INTAKE.md), continuing
+[UNIT_TOML_INTAKE.md](UNIT_TOML_INTAKE.md). The revision table and Rust registry
+below describe the retained legacy Cargo interface; TOML discovery reads the
+provider-owned `unit.toml` files at the current gitlinks.
+
+Recursive discovery now includes PCI, IOMMU and VirtIO block alongside Hub,
+Router, UART and RTC. Their provider declarations own startup dependencies,
+authentication and dynamic supplies; the aggregate only fixes their revisions.
+
 The aggregate registers the independently published Hub, Router, UART and RTC
 Units. Units own their declarations and runtimes; the aggregate fixes their
 revisions and orders their declarations and image builds. Source owns combined
